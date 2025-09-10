@@ -3,9 +3,9 @@
 #include <string.h>
 #include <time.h>
 
-/*
+
 void print_face (int expression){
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t__________");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t ___________\n");
     switch(expression) {
         case 1: // Happy
             printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|  ^     ^  |\n");
@@ -16,20 +16,22 @@ void print_face (int expression){
             printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|    / \\    |\n");
             break;
         case 3: // Question
-            printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|  ?     ?  |\n");
+            printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|  ?     ?  |??\n");
             printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|    ___    |\n");
             break;
         case 4: // Neutral
             printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|  -     -  |\n");
             printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|    ___    |\n");
             break;
-        default: // Default
-            printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|  °     -  |!!\n");
+        default: // welcome
+            printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|  °     -  |\n");
             printf("\t\t\t\t\t\t\t\t\t\t\t\t\t|    ___    |\n");
             break;
     }
+        printf("\t\t\t\t\t\t\t\t\t\t\t\t\t -----------\n");
 
-}*/
+
+}
 
 
 int main()
@@ -43,19 +45,21 @@ int main()
     char *neutre[]={"ok", "fine", "average", "normal", "usual",
                     "medium", "passable", "so-so", "fair", "regular"};
 
-    char *welcomme[]={"hello","hi","good morning","good night",""};
+    char *welcome[]={"hello","hi","good morning","good night"};
 
-    char phrasesP [5][200] = {"That's wonderful news! I'm really happy for you." , "I'm so glad to hear that everything is going well." , "That's fantastic! You must be really proud of yourself." ,
-                            "Wow, that's amazing! You did an incredible job.","It's great to see you so happy and motivated."};
+    char phrasesP [20][200] = {"I'm really happy for you." , "I'm so glad to hear that everything is going well." , "That's fantastic!" ,
+                            "Wow, that's amazing!","It's great to see you so happy and motivated."};
 
-    char phrasesN [5][200] = {"I'm really sorry to hear that. I hope things get better soon.","Oh no, that's really unfortunate. Let me know if I can help.",
-                            "I understand how difficult this must be for you. Stay strong.","That's really disappointing. I hope the situation improves quickly",
+    char phrasesN [20][200] = {"I hope things get better soon.","Oh no, that's really unfortunate. Let me know if I can help.",
+                            "I understand how difficult this must be for you. Stay strong.","That's really disappointing.",
                             "I feel bad that you had to go through that. It's not easy."};
 
-    char phrasesNeu [5][200] = {"Okay, I see what you mean. Thanks for letting me know.","Alright, I understand. Let's move on from here.","That makes sense. Thanks for explaining it to me.",
-                                "I hear you. It's good to know how things are.","Fair enough, I get your point. Let's keep going."};
+    char phrasesNeu [20][200] = {"Okay, I see what you mean. Thanks for letting me know.","Alright, I understand. Let's move on from here.",
+                                "That makes sense. Thanks for explaining it to me.","I hear you. It's good to know how things are.",
+                                "Fair enough, I get your point. Let's keep going."};
 
-    //char phrasesW[5][200] = {}
+    char phrasesW [20][200] = { "Welcome!","Hello and welcome!","A warm welcome to you.","It’s great to have you here.","Welcome back!",
+                                "So happy to have you with us today!"};
     //char *tabRand[];
     char phrase[200];
     char *mot;
@@ -93,39 +97,51 @@ int main()
                 if(strcmp(tabMots[i],positif[j])==0){
                     index = rand()%5;
                     printf("Bot : %s\n\n",phrasesP[index]);
+                    print_face(1);
                     repondu = 1;
                     break;
                 }
             }
-            if (repondu)
-                break;
+
+            for(j = 0 ; j < 4 ; j++){
+                if(strcmp(tabMots[i],welcome[j])==0){
+                    index = rand()%6;
+                    printf("Bot : %s\n\n",phrasesW[index]);
+                    print_face(5);
+                    repondu = 1;
+                    break;
+                }
+            }
 
             for(j = 0 ; j < 10 ; j++){
                 if(strcmp(tabMots[i],neutre[j])==0){
                     index = rand()%5;
                     printf("Bot : %s\n\n",phrasesNeu[index]);
+                    print_face(4);
                     repondu = 1;
                     break;
                 }
             }
-            if (repondu)
-                break;
 
             for(j = 0 ; j < 10 ; j++){
                 if(strcmp(tabMots[i],negatif[j])==0){
                     index = rand()%5;
                     printf("Bot : %s\n\n",phrasesN[index]);
+                    print_face(2);
                     repondu = 1;
                     break;
                 }
             }
-            if (repondu)
-                break;
-        }
-        if(!repondu)
-            printf("Bot : I don't know how to respond to that.\n\n");
+                if(repondu)
+                    break;
 
-    }
+
+            }
+            if(!repondu){
+                    printf("Bot : I don't know how to respond to that.\n\n");
+                    print_face(3);
+                }
+        }
 
     return 0;
 }
